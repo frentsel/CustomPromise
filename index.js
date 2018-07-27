@@ -10,7 +10,7 @@ const CustomPromise = function(callback) {
 
   this.then = function(resolve, reject) {
 
-    reject && (this.catch = function() { });
+    reject && (this.catch = () => { });
 
     callback(
       res.bind(null, resolve),
