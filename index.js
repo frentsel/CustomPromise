@@ -1,11 +1,10 @@
-const CustomPromise = function(callback) {
+const CustomPromise = function CustomPromise(callback) {
 
-  const res = (fn, ...args) => fn && callOnce(fn, args);
-  const rej = (fn, ...args) => fn && callOnce(fn, args);
-
+  let param;
+  let applyFn = (fn, ...args) => fn && callOnce(fn, args);
   let callOnce = (fn, args) => {
-    fn.apply(null, args);
-    callOnce = () => { };
+    param = fn.apply(null, param ? [param] : args);
+    (param === undefined) && (callOnce = () => { });
   };
 
   this.then = function(resolve, reject) {
@@ -13,8 +12,8 @@ const CustomPromise = function(callback) {
     reject && (this.catch = () => { });
 
     callback(
-      res.bind(null, resolve),
-      rej.bind(null, reject)
+      applyFn.bind(null, resolve),
+      applyFn.bind(null, reject)
     );
 
     return this;
@@ -23,7 +22,7 @@ const CustomPromise = function(callback) {
   this.catch = function(reject) {
     callback(
       function() { },
-      rej.bind(null, reject)
+      applyFn.bind(null, reject)
     );
   }
 }
