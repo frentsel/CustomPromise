@@ -1,15 +1,27 @@
 # CustomPromise
-Custom Promise on javascript
+Custom javascript Promise implementation
 
-## Use cases
-```
-new CustomPromise((resolve, reject) => {
-  // setTimeout(resolve, 1000, ['Date', new Date()]);
-  setTimeout(reject, 1000, ['Date', new Date()]);
-})
+#### Example
+```javascript
+const promise = new CustomPromise((resolve, reject) => {
+  // setTimeout(resolve, 1000, 'success');
+  setTimeout(reject, 1000, 'error');
+});
+
+promise
   .then(
-    console.log.bind(null, 'Resolved:'),
-    console.log.bind(null, 'Rejected:')
+    console.log,
+    console.error
   )
-  .catch(console.log.bind(null, 'Catch:'));
+  .catch(console.error);
+```
+#### Promises chaining
+```javascript
+promise
+  .then((data) => {
+    console.log('data: ', data);
+    return data + ' + extra text';
+  })
+  .then(console.log)
+  .catch(console.error);
 ```
