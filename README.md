@@ -20,7 +20,7 @@ promise
 promise
   .then((data) => {
     console.log(data);
-    return data + ' + extra text';
+    return 'some text';
   })
   .then(console.log)
   .catch(console.error);
