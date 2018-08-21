@@ -19,7 +19,7 @@ promise
 ```javascript
 promise
   .then((data) => {
-    console.log('data: ', data);
+    console.log(data);
     return data + ' + extra text';
   })
   .then(console.log)
